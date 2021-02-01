@@ -123,10 +123,9 @@ public class VersionCleanup extends AnnotatedStandardMBean implements Runnable, 
 
     }
 
-    private void findVersions(final Session session, final Resource resource)
-            throws RepositoryException, InterruptedException {
+    private boolean findVersions(final Session session, final Resource resource) throws RepositoryException {
         if (Thread.interrupted()) {
-            throw new InterruptedException("Process interrupted");
+            return true;
         }
         log.debug("Finding versions under: {}", resource.getPath());
         if ("nt:versionHistory".equals(resource.getResourceType())) {
@@ -134,9 +133,12 @@ public class VersionCleanup extends AnnotatedStandardMBean implements Runnable, 
             cleanupVersions(session, resource);
         } else {
             for (final Resource child : resource.getChildren()) {
-                findVersions(session, child);
+                if (findVersions(session, child)) {
+                    return true;
+                }
             }
         }
+        return false;
     }
 
     private boolean isMatchingVersion(Session session, String path, VersionHistory versionHistory)
@@ -171,9 +173,6 @@ public class VersionCleanup extends AnnotatedStandardMBean implements Runnable, 
 
     private void doRun() {
         log.info("Running version cleanup");
-        boolean interrupted = false;
-        boolean succeeded = false;
-        String failureMessage = null;
         lastCleanedVersions = 0;
         try {
             try (final ResourceResolver adminResolver = factory.getServiceResourceResolver(
@@ -183,26 +182,18 @@ public class VersionCleanup extends AnnotatedStandardMBean implements Runnable, 
                         .orElseThrow(() -> new RepositoryException("Failed to get session"));
                 for (final Resource folder : versionRoot.getChildren()) {
                     log.info("Traversing and cleaning: {}", folder.getPath());
-                    findVersions(session, folder);
+                    if (findVersions(session, folder)) {
+                        break;
+                    }
                 }
-                succeeded = true;
+                lastFailureMessage = null;
             }
         } catch (final LoginException le) {
             log.error("Failed to run version cleanup, cannot get service user", le);
-            failureMessage = "Failed to run version cleanup, cannot get service user";
+            lastFailureMessage = "Failed to run version cleanup, cannot get service user";
         } catch (final RepositoryException re) {
             log.error("Failed to run version cleanup", re);
-            failureMessage = "Failed to run version cleanup";
-        } catch (final InterruptedException e) { // no need to do anything, at this point nearly done
-            log.info("Process interrupted, quitting");
-            interrupted = true;
-        } finally {
-            if (succeeded) {
-                this.lastFailureMessage = null;
-            } else if (!interrupted) {
-                lastFailureMessage = failureMessage != null ? failureMessage
-                        : "Failed due to unexpected exception, see logs";
-            }
+            lastFailureMessage = "Failed to run version cleanup";
         }
     }
 
