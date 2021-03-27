@@ -13,7 +13,7 @@
         }
     },
     "repoinit:TEXT|true": [
-        "create service user sling-versionmgr",
+        "create service user sling-versionmgr with path system/sling",
         "set ACL for sling-versionmgr",
         "allow   jcr:write,jcr:nodeTypeManagement,jcr:versionManagement    on /",
         "allow   jcr:read    on /jcr:system/jcr:versionStorage",
