@@ -35,7 +35,6 @@
         <oak.version>1.8.8</oak.version>
     </properties>
 
-
     <scm>
         <connection>scm:git:https://gitbox.apache.org/repos/asf/sling-org-apache-sling-jcr-maintenance.git</connection>
         <developerConnection>scm:git:https://gitbox.apache.org/repos/asf/sling-org-apache-sling-jcr-maintenance.git</developerConnection>
