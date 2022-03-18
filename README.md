@@ -9,12 +9,12 @@ This project provides reference implementation of Maintenance jobs for maintaini
 
 This includes the following Maintenance jobs:
 
-- [DataStoreCleanupScheduler](src/main/java/org/apache/sling/maintenance/internal/DataStoreCleanupScheduler.java) - Run the [RepositoryManagementMBean.startDataStoreGC(true)](https://jackrabbit.apache.org/oak/docs/apidocs/org/apache/jackrabbit/oak/api/jmx/RepositoryManagementMBean.html#startDataStoreGC-boolean-) method to perform a Garbage Collection of the Data Store
-- [RevisionCleanupScheduler](src/main/java/org/apache/sling/maintenance/internal/RevisionCleanupScheduler.java) - Run the [RepositoryManagementMBean.startRevisionGC()](https://jackrabbit.apache.org/oak/docs/apidocs/org/apache/jackrabbit/oak/api/jmx/RepositoryManagementMBean.html#startRevisionGC--) method to perform a Garbage Collection of the Revision Store
-- [VersionCleanup](src/main/java/org/apache/sling/maintenance/internal/VersionCleanup.java) - Job to traverse the JCR Version Store
+- [DataStoreCleanupScheduler](src/main/java/org/apache/sling/jcr/maintenance/internal/DataStoreCleanupScheduler.java) - Run the [RepositoryManagementMBean.startDataStoreGC(true)](https://jackrabbit.apache.org/oak/docs/apidocs/org/apache/jackrabbit/oak/api/jmx/RepositoryManagementMBean.html#startDataStoreGC-boolean-) method to perform a Garbage Collection of the Data Store
+- [RevisionCleanupScheduler](src/main/java/org/apache/sling/jcr/maintenance/internal/RevisionCleanupScheduler.java) - Run the [RepositoryManagementMBean.startRevisionGC()](https://jackrabbit.apache.org/oak/docs/apidocs/org/apache/jackrabbit/oak/api/jmx/RepositoryManagementMBean.html#startRevisionGC--) method to perform a Garbage Collection of the Revision Store
+- [VersionCleanup](src/main/java/org/apache/sling/jcr/maintenance/internal/VersionCleanup.java) - Job to traverse the JCR Version Store
   and remove versions (oldest-first) exceeding a configurable limit
 
-As well as a [Health Check](src/main/java/org/apache/sling/maintenance/internal/RepositoryMaintenanceHealthCheck.java) to ensure the jobs are scheduled and have not failed.
+As well as a [Health Check](src/main/java/org/apache/sling/jcr/maintenance/internal/RepositoryMaintenanceHealthCheck.java) to ensure the jobs are scheduled and have not failed.
 
 ## Configuration
 
