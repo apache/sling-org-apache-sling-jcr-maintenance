@@ -32,7 +32,7 @@
 
     <properties>
         <project.build.outputTimestamp>2021-04-15T18:14:05Z</project.build.outputTimestamp>
-        <oak.version>1.8.8</oak.version>
+        <oak.version>1.56.0</oak.version>
     </properties>
 
     <scm>
