@@ -26,13 +26,13 @@
         <relativePath />
     </parent>
     <artifactId>org.apache.sling.jcr.maintenance</artifactId>
-    <version>1.0.3-SNAPSHOT</version>
+    <version>1.1.0-SNAPSHOT</version>
     <name>Apache Sling JCR Maintenance</name>
     <description>Maintenance jobs for the JCR</description>
 
     <properties>
         <project.build.outputTimestamp>2021-04-15T18:14:05Z</project.build.outputTimestamp>
-        <oak.version>1.8.8</oak.version>
+        <oak.version>1.56.0</oak.version>
     </properties>
 
     <scm>

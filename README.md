@@ -28,3 +28,12 @@ There are two primary features made by this project include:
 - **Default** - org.apache.sling:org.apache.sling.jcr.maintenance:slingosgifeature:default:${project.version} - the bundle, service user and default configuration which keeps 5 versions and runs the jobs every night
 
 This module is part of the [Apache Sling](https://sling.apache.org) project.
+
+## Compatibility
+
+When paring the bundles in your installation, these are the version combinations that would be compatible:
+
+| Apache Sling JCR Maintenance | Apache Jackrabbit Oak |
+|---|---|
+| 1.0.2 | 1.8.8 to 1.54.0 |
+| 1.1.0 or later | 1.56.0 or later |
